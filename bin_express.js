@@ -42,9 +42,10 @@ app.get('/info', async (req, res, err) => {
                 //console.log(targetCounter, offset, '-------------------------------------');
                 const tgt = targetHeader(block);
                 offset += block.length
+                let date = new Date(1000 * packet.timestamp)
 
                 horses[tgt.horseNo] = horses[tgt.horseNo] ? horses[tgt.horseNo] : [];
-                horses[tgt.horseNo].push({ y: tgt.distanceToGoalLine, x: packet.timestamp, r: 1 });
+                horses[tgt.horseNo].push({ y: tgt.distanceToGoalLine, x: date });
 
                 //console.log(horses[tgt.horseNo]);
 
@@ -71,7 +72,7 @@ app.get('/info', async (req, res, err) => {
 
         const actualHorses = horses.map((f, i) => { return { horseNo: i, data: f }; }).filter(f => f.data.length !== 0);
         res.send(actualHorses);
-        console.log('horses ->', actualHorses);
+        console.log('horses ->', actualHorses[0].data);
     });
 
     // bryter ut target header till en egen funktion  och tar ut datan från varje element
