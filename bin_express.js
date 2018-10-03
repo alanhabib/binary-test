@@ -45,7 +45,7 @@ app.get('/info', async (req, res, err) => {
                 let date = new Date(1000 * packet.timestamp)
 
                 horses[tgt.horseNo] = horses[tgt.horseNo] ? horses[tgt.horseNo] : [];
-                horses[tgt.horseNo].push({ y: tgt.distanceToGoalLine, x: date });
+                horses[tgt.horseNo].push({ y: tgt.distanceToGoalLine, x: date, r: 1 });
 
                 //console.log(horses[tgt.horseNo]);
 
