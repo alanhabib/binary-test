@@ -9,78 +9,187 @@
 </head>
 
 <body>
+    <header>
+        <h1>Horse tracking chart</h1>
+        <button id="btn">Fetch the track</button>
+    </header>
+
     <div class="container">
         <canvas id="myChart" width="800" height="800"></canvas>
     </div>
+    <div id="div1">The text above has been created dynamically.</div>
+    <script src="bin_express.js"></script>
     <script>
+        async function getFetch(url) {
+            let data = await fetch(url)
+            data = await data.json();
+            return data
+        }
+
+        getFetch("http:/localhost:4000/info").then(console.log);
+
+        // document.body.onload = addHorses;
+
+        function renderHorses(e) {
+            // create a new div element
+            // let newDiv = document.createElement("div");
+            // and give it the content
+            // let newContent = document.createTextNode("Hello there")
+            // newDiv.appendChild(newContent);
+            let currentDiv = document.getElementById("div1");
+            for (let i = 0; i < e.actualHorses.length; i++) {
+                let x = document.createElement("horseNo");
+                let y = document.createElement("distanceToGoalLine");
+                x.appendChild(document.createTextNode(data.actualHorses[i].horseNo));
+                y.appendChild(addActualHorseData(e.actualHorses[i]));
+            }
+            out.appendChild(y);
+            // document.body.insertBefore(newDiv, currentDiv);
+            console.log(addHorses);
+        }
+
+        function renderHorsesSpecificData(o) {
+            let x = document.createElement("horseNo");
+            for (let i = 0; i < actualHorses.data.length; i++) {
+                let y = document.createElement("y");
+                y.appendChild(
+                    document.createTextNode(
+                        actualHorses.data[i].label + " " +
+                        actualHorses.data[i].value
+                    )
+                );
+            }
+            x.appendChild(y);
+            return x;
+        }
+
+        // for (let i = 0; i < actualHorses.length; i++) {
+        //     chart.options.this.actualHorses[0].push(this.actualHorses[i]);
+        // }
+
+
 
         let myChart = document.getElementById("myChart").getContext("2d");
 
         // global option
-        Chart.defaults.global.defaultFontFamily = "Lato";
-        Chart.defaults.global.defaultFontSize = 18;
-        Chart.defaults.global.defaultFontFamily = "#777";
+        // Chart.defaults.global.defaultFontFamily = "Lato";
+        // Chart.defaults.global.defaultFontSize = 18;
+        // Chart.defaults.global.defaultFontFamily = "#777";
 
-
-
-        let massPopChart = new Chart(myChart, {
-            // types that can be installed bar, horizontalBar, pie, line, doughnut, radar
-            type: "line",
-            data: {
-                labels: ["blabla", "posX", "mimi"],
-                datasets: [{
-                    label: "track",
-                    data: [
-                        25,
-                        25.79399871826172,
-                        26
-                    ],
-                    backgroundColor: [
-                        "rgba(255, 99, 132, .6)",
-                        "rgba(54, 163, 232, .6)",
-                        "rgba(99, 132, 64, .6)",
-                    ],
-                    borderWidth: 1,
-                    borderColor: "#777",
-                    hoverBorderWidth: 3,
-                    hoverBorderColor: "#000"
-
-                }]
-            },
-            options: {
-                title: {
-                    display: true,
-                    text: "Horse tracking chart",
-                    fontSize: 25
-                },
-                legend: {
-                    position: "right",
-                    labels: {
-                        fontColor: "#000"
-                    }
-                },
-                layout: {
-                    padding: {
-                        left: 50,
-                        right: 0,
-                        bottom: 0,
-                        top: 0
-                    }
-                },
-                scales: {
-                    yAxes: [{
-                        max: 34,
-                        min: 0,
-                        stepSize: .5
-                    }]
-                },
-                tooltips: {
-                    // enabled: false
-                }
+        function fillArrayRandomNumbers(arr, max) {
+            for (let i = 0; i < arr.length; i++) {
+                arr[i] = Math.floor(Math.random() * max + 1);
             }
-        })
+            // console.log(arr)
+            return arr;
+        }
 
-    </script>
+        function displayArray(arr) {
+            canvas = document.getElementById("myChart")
+            let context = canvas.getContext("2d")
+            context.font = "20px Georgia";
+            // console.log(arr.length)
+            for (let i = 0; i < arr.length; i++) {
+                // console.log(arr[i]);
+                context.fillText(arr[i], i * 30, 50);
+
+            }
+        }
+
+        let new_array = Array(10)
+        new_array = fillArrayRandomNumbers(new_array, 10)
+        displayArray(new_array)
+
+    //     let massPopChart = new Chart(myChart, {
+    //         // types that can be installed bar, horizontalBar, pie, line, doughnut, radar
+    //         type: "bubble",
+    //         data: {
+    //             labels: "Africa",
+    //             datasets: [
+    //                 {
+    //                     label: ["China"],
+    //                     backgroundColor: "rgba(255,221,50,0.2)",
+    //                     borderColor: "rgba(255,221,50,1)",
+    //                     data: [
+    //                         {
+    //                             x: 21269017,
+    //                             y: 5.245,
+    //                             r: 15
+    //                         }
+    //                     ]
+    //                 },
+    //                 {
+    //                     label: ["Denmark"],
+    //                     backgroundColor: "rgba(60,186,159,0.2)",
+    //                     borderColor: "rgba(60,186,159,1)",
+    //                     data: [
+    //                         {
+    //                             x: 258702,
+    //                             y: 7.526,
+    //                             r: 10
+    //                         }
+    //                     ]
+    //                 },
+    //                 {
+    //                     label: ["Germany"],
+    //                     backgroundColor: "rgba(0,0,0,0.2)",
+    //                     borderColor: "#000",
+    //                     data: [
+    //                         {
+    //                             x: 3979083,
+    //                             y: 6.994,
+    //                             r: 15
+    //                         }
+    //                     ]
+    //                 },
+    //                 {
+    //                     label: ["Japan"],
+    //                     backgroundColor: "rgba(193,46,12,0.2)",
+    //                     borderColor: "rgba(193,46,12,1)",
+    //                     data: [
+    //                         {
+    //                             x: 4931877,
+    //                             y: 5.921,
+    //                             r: 15
+    //                         }
+    //                     ]
+    //                 }
+    //             ]
+    //         },
+    //         options: {
+    //             title: {
+    //                 display: true,
+    //                 text: "Horse tracking chart",
+    //                 fontSize: 25
+    //             },
+    //             legend: {
+    //                 position: "right",
+    //                 labels: {
+    //                     fontColor: "#000"
+    //                 }
+    //             },
+    //             layout: {
+    //                 padding: {
+    //                     left: 50,
+    //                     right: 0,
+    //                     bottom: 0,
+    //                     top: 0
+    //                 }
+    //             },
+    //             scales: {
+    //                 yAxes: [{
+    //                     max: 34,
+    //                     min: 0,
+    //                     stepSize: .5
+    //                 }]
+    //             },
+    //             tooltips: {
+    //                 // enabled: false
+    //             }
+    //         }
+    //     })
+
+    // </script>
 </body>
 
 </html>
