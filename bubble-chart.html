@@ -20,11 +20,11 @@
     <div id="div1">The text above has been created dynamically.</div>
     <script>
 
-        var xArray = ["23.561799", "-10.713591", "-20.516543", "27.352751", "-21.090982"];
-        var yArray = ["-5.777557", "-24.425175", "9.131939", "7.052970", "-26.059631"];
-        var rArray = ["10.000000", "15.000000", "21.000000", "6.000000", "29.000000"];
+        let xArray = ["23.561799", "-10.713591", "-20.516543", "27.352751", "-21.090982"];
+        let yArray = ["-5.777557", "-24.425175", "9.131939", "7.052970", "-26.059631"];
+        let rArray = ["10.000000", "15.000000", "21.000000", "6.000000", "29.000000"];
 
-        var chartData = [];
+        let chartData = [];
 
         xArray.forEach(function (e, i) {
             chartData.push({
@@ -34,8 +34,8 @@
             });
         });
 
-        var ctx = document.getElementById("myChart");
-        var myChart = new Chart(ctx, {
+        let ctx = document.getElementById("myChart");
+        let myChart = new Chart(ctx, {
             type: 'bubble',
             data: {
                 labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
@@ -71,11 +71,11 @@
         // }
 
 
-        // var xArray = horseData;
-        // var yArray = horseData;
-        // var rArray = horseData;
+        // let xArray = horseData;
+        // let yArray = horseData;
+        // let rArray = horseData;
 
-        // var horseData = [];
+        // let horseData = [];
 
         // xArray.forEach(function (e, i) {
         //     horseData.push({
@@ -85,10 +85,10 @@
         //     });
         // });
 
-        // var ctx = document.getElementById("myChart");
+        // let ctx = document.getElementById("myChart");
 
         // function drawChart() {
-        //     var myChart = new Chart(ctx, {
+        //     let myChart = new Chart(ctx, {
         //         type: 'bubble',
         //         data: {
         //             labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
@@ -132,7 +132,7 @@
         // Chart.defaults.global.defaultFontSize = 18;
         // Chart.defaults.global.defaultFontFamily = "#777";
 
-        // var horseData;
+        // let horseData;
         // let myChart = document.getElementById("myChart").getContext("2d");
 
         // function drawChart() {
