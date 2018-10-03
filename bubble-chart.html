@@ -18,178 +18,275 @@
         <canvas id="myChart" width="800" height="800"></canvas>
     </div>
     <div id="div1">The text above has been created dynamically.</div>
-    <script src="bin_express.js"></script>
     <script>
+
+        var xArray = ["23.561799", "-10.713591", "-20.516543", "27.352751", "-21.090982"];
+        var yArray = ["-5.777557", "-24.425175", "9.131939", "7.052970", "-26.059631"];
+        var rArray = ["10.000000", "15.000000", "21.000000", "6.000000", "29.000000"];
+
+        var chartData = [];
+
+        xArray.forEach(function (e, i) {
+            chartData.push({
+                x: parseFloat(e),
+                y: parseFloat(yArray[i]),
+                r: parseFloat(rArray[i]),
+            });
+        });
+
+        var ctx = document.getElementById("myChart");
+        var myChart = new Chart(ctx, {
+            type: 'bubble',
+            data: {
+                labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+                datasets: [
+                    {
+                        label: 'Gaze Map Month 1',
+                        data: chartData,
+                        backgroundColor: "#FF6384",
+                        hoverBackgroundColor: "#FF6384",
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            min: -30,
+                            max: 30
+                        }
+                    }],
+                }
+            }
+        }
+        );
+
+        // -----------------------------------------------------------------------------------------------------------------------
+
+        // async function getFetch(url) {
+        //     let data = await fetch(url)
+        //     data = await data.json();
+        //     return data
+        // }
+
+
+        // var xArray = horseData;
+        // var yArray = horseData;
+        // var rArray = horseData;
+
+        // var horseData = [];
+
+        // xArray.forEach(function (e, i) {
+        //     horseData.push({
+        //         x: parseFloat(e),
+        //         y: parseFloat(yArray[i]),
+        //         r: parseFloat(rArray[i]),
+        //     });
+        // });
+
+        // var ctx = document.getElementById("myChart");
+
+        // function drawChart() {
+        //     var myChart = new Chart(ctx, {
+        //         type: 'bubble',
+        //         data: {
+        //             labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+        //             datasets: [
+        //                 {
+        //                     label: 'Gaze Map Month 1',
+        //                     data: horseData[0].data,
+        //                     backgroundColor: "#FF6384",
+        //                     hoverBackgroundColor: "#FF6384",
+        //                 }
+        //             ]
+        //         },
+        //         options: {
+        //             scales: {
+        //                 yAxes: [{
+        //                     ticks: {
+        //                         beginAtZero: true,
+        //                         min: -30,
+        //                         max: 30
+        //                     }
+        //                 }],
+        //             }
+        //         }
+        //     }
+        //     );
+        // }
+
+        // getFetch("http:/localhost:4000/info").then(function (result) {
+        //     horseData = result;
+        //     drawChart();
+        // });
+
+        // -----------------------------------------------------------------------------------------------------------------------
         async function getFetch(url) {
             let data = await fetch(url)
             data = await data.json();
             return data
         }
-
-        getFetch("http:/localhost:4000/info").then(console.log);
-
-        // document.body.onload = addHorses;
-
-        function renderHorses(e) {
-            // create a new div element
-            // let newDiv = document.createElement("div");
-            // and give it the content
-            // let newContent = document.createTextNode("Hello there")
-            // newDiv.appendChild(newContent);
-            let currentDiv = document.getElementById("div1");
-            for (let i = 0; i < e.actualHorses.length; i++) {
-                let x = document.createElement("horseNo");
-                let y = document.createElement("distanceToGoalLine");
-                x.appendChild(document.createTextNode(data.actualHorses[i].horseNo));
-                y.appendChild(addActualHorseData(e.actualHorses[i]));
-            }
-            out.appendChild(y);
-            // document.body.insertBefore(newDiv, currentDiv);
-            console.log(addHorses);
-        }
-
-        function renderHorsesSpecificData(o) {
-            let x = document.createElement("horseNo");
-            for (let i = 0; i < actualHorses.data.length; i++) {
-                let y = document.createElement("y");
-                y.appendChild(
-                    document.createTextNode(
-                        actualHorses.data[i].label + " " +
-                        actualHorses.data[i].value
-                    )
-                );
-            }
-            x.appendChild(y);
-            return x;
-        }
-
-        // for (let i = 0; i < actualHorses.length; i++) {
-        //     chart.options.this.actualHorses[0].push(this.actualHorses[i]);
-        // }
-
-
-
-        let myChart = document.getElementById("myChart").getContext("2d");
-
-        // global option
+        // // global option
         // Chart.defaults.global.defaultFontFamily = "Lato";
         // Chart.defaults.global.defaultFontSize = 18;
         // Chart.defaults.global.defaultFontFamily = "#777";
 
-        function fillArrayRandomNumbers(arr, max) {
-            for (let i = 0; i < arr.length; i++) {
-                arr[i] = Math.floor(Math.random() * max + 1);
-            }
-            // console.log(arr)
-            return arr;
-        }
+        // var horseData;
+        // let myChart = document.getElementById("myChart").getContext("2d");
 
-        function displayArray(arr) {
-            canvas = document.getElementById("myChart")
-            let context = canvas.getContext("2d")
-            context.font = "20px Georgia";
-            // console.log(arr.length)
-            for (let i = 0; i < arr.length; i++) {
-                // console.log(arr[i]);
-                context.fillText(arr[i], i * 30, 50);
+        // function drawChart() {
+        //     let massPopChart = new Chart(myChart, {
+        //         // types that can be installed bar, horizontalBar, pie, line, doughnut, radar
+        //         type: "line",
+        //         data: {
+        //             labels: "Africa",
+        //             datasets: [
+        //                 {
+        //                     label: ["China"],
+        //                     backgroundColor: "rgba(255,221,50,0.2)",
+        //                     borderColor: "rgba(255,221,50,1)",
+        //                     data: horseData[0].data[0]
+        //                 },
+        //                 {
+        //                     label: ["Denmark"],
+        //                     backgroundColor: "rgba(60,186,159,0.2)",
+        //                     borderColor: "rgba(60,186,159,1)",
+        //                     data: [
+        //                         {
+        //                             x: 258702,
+        //                             y: 7.526,
+        //                             r: 10
+        //                         }
+        //                     ]
+        //                 },
+        //                 {
+        //                     label: ["Germany"],
+        //                     backgroundColor: "rgba(0,0,0,0.2)",
+        //                     borderColor: "#000",
+        //                     data: [
+        //                         {
+        //                             x: 3979083,
+        //                             y: 6.994,
+        //                             r: 15
+        //                         }
+        //                     ]
+        //                 },
+        //                 {
+        //                     label: ["Japan"],
+        //                     backgroundColor: "rgba(193,46,12,0.2)",
+        //                     borderColor: "rgba(193,46,12,1)",
+        //                     data: [
+        //                         {
+        //                             x: 4931877,
+        //                             y: 5.921,
+        //                             r: 15
+        //                         }
+        //                     ]
+        //                 }
+        //             ]
+        //         },
+        //         options: {
+        //             title: {
+        //                 display: true,
+        //                 text: "Horse tracking chart",
+        //                 fontSize: 25
+        //             },
+        //             legend: {
+        //                 position: "right",
+        //                 labels: {
+        //                     fontColor: "#000"
+        //                 }
+        //             },
+        //             layout: {
+        //                 padding: {
+        //                     left: 50,
+        //                     right: 0,
+        //                     bottom: 0,
+        //                     top: 0
+        //                 }
+        //             },
+        //             scales: {
+        //                 yAxes: [{
+        //                     max: 999999,
+        //                     min: 0,
+        //                     stepSize: 1
+        //                 }]
+        //             },
+        //             tooltips: {
+        //                 // enabled: false
+        //             }
+        //         }
+        //     })
+        // }
 
-            }
-        }
+        getFetch("http:/localhost:4000/info").then(function (result) {
+            horseData = result;
+            console.log(horseData[0].data[1]);
+            drawChart();
+        });
 
-        let new_array = Array(10)
-        new_array = fillArrayRandomNumbers(new_array, 10)
-        displayArray(new_array)
+                // -----------------------------------------------------------------------------------------------------------------------
 
-    //     let massPopChart = new Chart(myChart, {
-    //         // types that can be installed bar, horizontalBar, pie, line, doughnut, radar
-    //         type: "bubble",
-    //         data: {
-    //             labels: "Africa",
-    //             datasets: [
-    //                 {
-    //                     label: ["China"],
-    //                     backgroundColor: "rgba(255,221,50,0.2)",
-    //                     borderColor: "rgba(255,221,50,1)",
-    //                     data: [
-    //                         {
-    //                             x: 21269017,
-    //                             y: 5.245,
-    //                             r: 15
-    //                         }
-    //                     ]
-    //                 },
-    //                 {
-    //                     label: ["Denmark"],
-    //                     backgroundColor: "rgba(60,186,159,0.2)",
-    //                     borderColor: "rgba(60,186,159,1)",
-    //                     data: [
-    //                         {
-    //                             x: 258702,
-    //                             y: 7.526,
-    //                             r: 10
-    //                         }
-    //                     ]
-    //                 },
-    //                 {
-    //                     label: ["Germany"],
-    //                     backgroundColor: "rgba(0,0,0,0.2)",
-    //                     borderColor: "#000",
-    //                     data: [
-    //                         {
-    //                             x: 3979083,
-    //                             y: 6.994,
-    //                             r: 15
-    //                         }
-    //                     ]
-    //                 },
-    //                 {
-    //                     label: ["Japan"],
-    //                     backgroundColor: "rgba(193,46,12,0.2)",
-    //                     borderColor: "rgba(193,46,12,1)",
-    //                     data: [
-    //                         {
-    //                             x: 4931877,
-    //                             y: 5.921,
-    //                             r: 15
-    //                         }
-    //                     ]
-    //                 }
-    //             ]
-    //         },
-    //         options: {
-    //             title: {
-    //                 display: true,
-    //                 text: "Horse tracking chart",
-    //                 fontSize: 25
-    //             },
-    //             legend: {
-    //                 position: "right",
-    //                 labels: {
-    //                     fontColor: "#000"
-    //                 }
-    //             },
-    //             layout: {
-    //                 padding: {
-    //                     left: 50,
-    //                     right: 0,
-    //                     bottom: 0,
-    //                     top: 0
-    //                 }
-    //             },
-    //             scales: {
-    //                 yAxes: [{
-    //                     max: 34,
-    //                     min: 0,
-    //                     stepSize: .5
-    //                 }]
-    //             },
-    //             tooltips: {
-    //                 // enabled: false
-    //             }
-    //         }
-    //     })
 
-    // </script>
+        // function renderHorses(e) {
+        //     // create a new div element
+        //     // let newDiv = document.createElement("div");
+        //     // and give it the content
+        //     // let newContent = document.createTextNode("Hello there")
+        //     // newDiv.appendChild(newContent);
+        //     let currentDiv = document.getElementById("div1");
+        //     for (let i = 0; i < e.actualHorses.length; i++) {
+        //         let x = document.createElement("horseNo");
+        //         let y = document.createElement("distanceToGoalLine");
+        //         x.appendChild(document.createTextNode(data.actualHorses[i].horseNo));
+        //         y.appendChild(addActualHorseData(e.actualHorses[i]));
+        //     }
+        //     out.appendChild(y);
+        //     // document.body.insertBefore(newDiv, currentDiv);
+        //     console.log(addHorses);
+        // }
+
+        // function renderHorsesSpecificData(o) {
+        //     let x = document.createElement("horseNo");
+        //     for (let i = 0; i < actualHorses.data.length; i++) {
+        //         let y = document.createElement("y");
+        //         y.appendChild(
+        //             document.createTextNode(
+        //                 actualHorses.data[i].label + " " +
+        //                 actualHorses.data[i].value
+        //             )
+        //         );
+        //     }
+        //     x.appendChild(y);
+        //     return x;
+        // }
+
+        // function fillArrayRandomNumbers(arr, max) {
+        //     for (let i = 0; i < arr.length; i++) {
+        //         arr[i] = Math.floor(Math.random() * max + 1);
+        //     }
+        //     // console.log(arr)
+        //     return arr;
+        // }
+
+        // function displayArray(arr) {
+        //     canvas = document.getElementById("myChart")
+        //     let context = canvas.getContext("2d")
+        //     context.font = "20px Georgia";
+        //     // console.log(arr.length)
+        //     for (let i = 0; i < arr.length; i++) {
+        //         // console.log(arr[i]);
+        //         context.fillText(arr[i], i * 30, 50);
+
+        //     }
+        // }
+
+        // let new_array = Array(10)
+        // new_array = fillArrayRandomNumbers(new_array, 10)
+        // displayArray(new_array)
+
+    </script>
 </body>
 
 </html>

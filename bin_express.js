@@ -44,7 +44,7 @@ app.get('/info', async (req, res, err) => {
                 offset += block.length
 
                 horses[tgt.horseNo] = horses[tgt.horseNo] ? horses[tgt.horseNo] : [];
-                horses[tgt.horseNo].push({ y: tgt.distanceToGoalLine, x: packet.timestamp });
+                horses[tgt.horseNo].push({ y: tgt.distanceToGoalLine, x: packet.timestamp, r: 1 });
 
                 //console.log(horses[tgt.horseNo]);
 
