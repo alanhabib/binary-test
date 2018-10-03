@@ -20,107 +20,53 @@
     <!-- <div id="div1">The text above has been created dynamically.</div> -->
 
     <script>
-
-        let xArray = ["23.561799", "-10.713591", "-20.516543", "27.352751", "-21.090982"];
-        let yArray = ["-5.777557", "-24.425175", "9.131939", "7.052970", "-26.059631"];
-        let rArray = ["10.000000", "15.000000", "21.000000", "6.000000", "29.000000"];
-
-        let chartData = [];
-
-        xArray.forEach(function (e, i) {
-            chartData.push({
-                x: parseFloat(e),
-                y: parseFloat(yArray[i]),
-                r: parseFloat(rArray[i]),
-            });
-        });
+        async function getFetch(url) {
+            let data = await fetch(url)
+            data = await data.json();
+            return data
+        }
 
         let ctx = document.getElementById("myChart");
-        let myChart = new Chart(ctx, {
-            type: 'bubble',
-            data: {
-                labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-                datasets: [
-                    {
-                        label: 'Gaze Map Month 1',
-                        data: chartData,
-                        backgroundColor: "#FF6384",
-                        hoverBackgroundColor: "#FF6384",
-                    }
-                ]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true,
-                            min: -30,
-                            max: 30
+        let horseData = [];
+        for (let i = 0; i < horseData.length; i++) {
+            let b = horseData[i];
+            ctx.fillRect(b.horseNo, b.data)
+        }
+
+        function drawChart() {
+
+            let myChart = new Chart(ctx, {
+                type: 'bubble',
+                data: {
+                    labels: ["Red"],
+                    datasets: [
+                        {
+                            label: 'Tracking chart',
+                            data: horseData,
+                            backgroundColor: "#FF6384",
+                            hoverBackgroundColor: "#FF6384",
                         }
-                    }],
+                    ]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true,
+                                min: -30,
+                                max: 30
+                            }
+                        }],
+                    }
                 }
             }
+            );
         }
-        );
 
-        // -----------------------------------------------------------------------------------------------------------------------
-
-        // async function getFetch(url) {
-        //     let data = await fetch(url)
-        //     data = await data.json();
-        //     return data
-        // }
-
-        // Här gör jag fel
-        // let xArray = actualHorses[i].distanceToGoalLine;
-        // let yArray = actualHorses[i].date;
-        // let rArray = actualHorses[0];
-
-        // let horseData = [];
-
-        // xArray.forEach(function (e, i) {
-        //     horseData.push({
-        //         x: parseFloat(e),
-        //         y: parseFloat(yArray[i]),
-        //         r: parseFloat(rArray[i]),
-        //     });
-        // });
-
-        // let ctx = document.getElementById("myChart");
-
-        // function drawChart() {
-        //     let myChart = new Chart(ctx, {
-        //         type: 'bubble',
-        //         data: {
-        //             labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-        //             datasets: [
-        //                 {
-        //                     label: 'Gaze Map Month 1',
-        //                     data: horseData[0].data,
-        //                     backgroundColor: "#FF6384",
-        //                     hoverBackgroundColor: "#FF6384",
-        //                 }
-        //             ]
-        //         },
-        //         options: {
-        //             scales: {
-        //                 yAxes: [{
-        //                     ticks: {
-        //                         beginAtZero: true,
-        //                         min: -30,
-        //                         max: 30
-        //                     }
-        //                 }],
-        //             }
-        //         }
-        //     }
-        //     );
-        // }
-
-        // getFetch("http:/localhost:4000/info").then(function (result) {
-        //     horseData = result;
-        //     drawChart();
-        // });
+        getFetch("http:/localhost:4000/info").then(function (result) {
+            horseData = result;
+            drawChart();
+        });
 
     </script>
 </body>
