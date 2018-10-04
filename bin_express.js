@@ -2,19 +2,24 @@ const express = require("express");
 const cors = require("cors");
 const assert = require("assert");
 const bodyParser = require("body-parser");
+const fs = require("fs");
 
 const app = express();
 
 const PORT = 4000;
 
-app.use(express.static("frontend/build"));
+app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use(cors());
+//app.use(cors());
+
+app.get("/", async (req, res, err) => {
+  res.sendFile("bubble-chart.html");
+
+})
 
 app.get("/info", async (req, res, err) => {
-  const fs = require("fs");
 
   // 1 byte = 8 bitar = 2 hex
   // läser readfile

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Horse dot-chart</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>Horse tracking chart</h1>
+        <!-- <button id="btn">Fetch the track</button> -->
+    </header>
+
+    <div class="container">
+        <div id="chartContainer" style="height: 360px; width: 100%;"> </div>
+        <!-- <div id="div1">The text above has been created dynamically.</div> -->
+
+        <script>
+            async function getFetch(url) {
+                let data = await fetch(url)
+                data = await data.json();
+                return data;
+            }
+
+            let horseData;
+
+            getFetch("http:/localhost:4000/info").then(function (result) {
+                horseData = result;
+                console.log(horseData);
+                // drawChart();
+            });
+
+
+            let ctx = document.getElementById("myChart");
+            let horseNoData = [];
+            for (let i = 0; i < horseData.length; i++) {
+                let b = horseData[i];
+                console.log(b);
+
+                ctx.fillRect(b.horseNo, b.data, 10, 100)
+            }
+
+            let data = [
+                { horseNo: "2", data: "333" },
+                { horseNo: "22", data: "436" },
+                { horseNo: "27", data: "454" },
+            ]
+
+            let horseNoData = data.map(function (horses) {
+                return horses.horseNo + " " + horses.data
+                ctx.fillRect(horses.horseNo);
+                console.log(horseNoData);
+            })
+
+
+            function drawChart() {
+
+                let myChart = new Chart(ctx, {
+                    type: 'bubble',
+                    data: {
+                        labels: ["Red"],
+                        datasets: [
+                            {
+                                label: 'Tracking chart',
+                                data: horseNoData,
+                                backgroundColor: "#FF6384",
+                                hoverBackgroundColor: "#FF6384",
+                            }
+                        ]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true,
+                                    min: -30,
+                                    max: 30
+                                }
+                            }],
+                        }
+                    }
+                }
+                );
+            } 
+
+            var x1 = [1, 2, 3];
+            var y1 = [4, 7, 4];
+            var dataPoints = [];
+
+            for (var i = 0; i < 3; i++) {
+                dataPoints.push({
+                    x: x1[i],
+                    y: y1[i]
+                });
+            }
+            var chart = new Chart("chartContainer", {
+                title: {
+                    text: " Populating chart using array "
+                },
+                data: [{
+                    type: "line",
+                    dataPoints: dataPoints
+                }]
+            });
+
+            chart.render();
+
+
+        </script>
+</body>
+
+</html>
