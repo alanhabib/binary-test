@@ -74,7 +74,7 @@ app.get("/info", async (req, res, err) => {
       })
       .filter(f => f.data.length !== 0);
     res.send(actualHorses);
-    console.log("horses ->", actualHorses[0].data);
+    console.log("horses ->", actualHorses);
   });
 
   // bryter ut target header till en egen funktion  och tar ut datan från varje element

@@ -28,10 +28,18 @@
 
         let ctx = document.getElementById("myChart");
         let horseData = [];
-        for (let i = 0; i < horseData.length; i++) {
+        for (let i = 0; i < data.length; i++) {
             let b = horseData[i];
             ctx.fillRect(b.horseNo, b.data)
         }
+
+        // let chartHorseData = data.map(function (horses) {
+        //     return horses.horseNo;
+        //     ctx.fillRect(horses.horseNo);
+
+        // })
+
+        let horseData = data.filter(chartHorseData);
 
         function drawChart() {
 
