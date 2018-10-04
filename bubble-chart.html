@@ -9,78 +9,107 @@
 </head>
 
 <body>
-    <header>
-        <h1>Horse tracking chart</h1>
-        <!-- <button id="btn">Fetch the track</button> -->
-    </header>
-
     <div id="chartContainer" style="height: 300px; width: 100%;"></div>
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
     <script>
-        // async function getFetch(url) {
-        //     let data = await fetch(url)
-        //     data = await data.json();
-        //     return data
-        // }
-        // (async () => {
+        async function getFetch(url) {
+            let data = await fetch(url)
+            data = await data.json();
+            return data
+        }
+        (async () => {
+            let newData = [];
+            let horseData = await getFetch("http:/localhost:4000/info")
 
-        //     let horseData = await getFetch("http:/localhost:4000/info")
-        //     console.log(horseData);
+            for (let i = 0; i < horseData.length; i++) {
+                let b = horseData[i];
 
-        //     let ctx = document.getElementById("myChart");
-        //     let horseNoData = [];
-        //     for (let i = 0; i < horseData.length; i++) {
-        //         let b = horseData[i];
-        //         console.log(b);
-        //     }
-        //     let data = [
-        //         { horseNo: "2", data: "333" },
-        //         { horseNo: "22", data: "436" },
-        //         { horseNo: "27", data: "454" },
-        //     ]
-
-        //     horseNoData = data.map(function (horses) {
-        //         return horses.horseNo + " " + horses.data
-        //         ctx.fillRect(horses.horseNo);
-        //         console.log(horseNoData);
-        //     })
+                //console.log(b.data[0]);
 
 
-        // }) ();
+                b.data.forEach(function (item) {
+                    item.name = b.horseNo;
+                    // console.log(item);
+                    newData.push(item)
+                })
+            }
 
-        window.onload = function () {
+            // let horseSpecificData = horseData.map(function (horses) {
+            //     return "HorseNo: " + horses.horseNo + " data: " + horses.data
+            // })
+            // console.log(horseSpecificData);
 
-            var chart = new CanvasJS.Chart("chartContainer", {
+            let x = [
+                { x: 2286.7, y: 2, z: 320.896, name: "US" },
+                { x: 2486.7, y: 5, z: 320.896, name: "US" },
+                { x: 2186.7, y: 8, z: 320.896, name: "US" },
+                { x: 2986.7, y: 12, z: 320.896, name: "US" },
+
+            ];
+            console.log(newData);
+            let chart = new CanvasJS.Chart("chartContainer", {
                 animationEnabled: true,
-                theme: "light2",
                 title: {
-                    text: "Simple Line Chart"
+                    text: "Horse track race"
+                },
+                axisX: {
+                    title: "Time"
                 },
                 axisY: {
-                    includeZero: false
+                    title: "Distance"
+                },
+                legend: {
+                    horizontalAlign: "left"
                 },
                 data: [{
-                    type: "line",
-                    dataPoints: [
-                        { y: 450 },
-                        { y: 414 },
-                        { y: 520, indexLabel: "highest", markerColor: "red", markerType: "triangle" },
-                        { y: 460 },
-                        { y: 450 },
-                        { y: 500 },
-                        { y: 480 },
-                        { y: 480 },
-                        { y: 410, indexLabel: "lowest", markerColor: "DarkSlateGrey", markerType: "cross" },
-                        { y: 500 },
-                        { y: 480 },
-                        { y: 510 }
-                    ]
+                    type: "bubble",
+                    xValueFormatString: "hh:mm TT",
+                    showInLegend: true,
+                    legendText: "Shows a horse track race",
+                    legendMarkerType: "circle",
+                    legendMarkerColor: "grey",
+                    toolTipContent: "<b>{name}</b><br/>Time: {x} yrs<br/> Distance: {y}<br/> Ratio: {z}mn",
+                    dataPoints: x
                 }]
             });
             chart.render();
+        })()
 
-        }
+//                 newChart = () => {
+
+// let chart = new CanvasJS.Chart("chartContainer", {
+//     animationEnabled: true,
+//     title: {
+//         text: "Fertility Rate vs Life Expectancy in Different Countries - 2015"
+//     },
+//     axisX: {
+//         title: "Life Expectancy (in Years)"
+//     },
+//     axisY: {
+//         title: "Fertility Rate"
+//     },
+//     legend: {
+//         horizontalAlign: "left"
+//     },
+//     data: [{
+//         type: "bubble",
+//         showInLegend: true,
+//         legendText: "Size of Bubble Represents Population in Millions",
+//         legendMarkerType: "circle",
+//         legendMarkerColor: "grey",
+//         toolTipContent: "<b>{name}</b><br/>Life Exp: {x} yrs<br/> Fertility Rate: {y}<br/> Population: {z}mn",
+//         dataPoints: newData
+//     }]
+// });
+
+// chart.render();
+// }
+
+
+
+
+
 
     </script>
 </body>

@@ -8,16 +8,10 @@ const app = express();
 
 const PORT = 4000;
 
-app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 //app.use(cors());
-
-app.get("/", async (req, res, err) => {
-  res.sendFile("bubble-chart.html");
-
-})
 
 app.get("/info", async (req, res, err) => {
 
@@ -45,10 +39,10 @@ app.get("/info", async (req, res, err) => {
         //console.log(targetCounter, offset, '-------------------------------------');
         const tgt = targetHeader(block);
         offset += block.length;
-        let date = new Date(1000 * packet.timestamp);
+        // let date = new Date(1000 * packet.timestamp);
 
         horses[tgt.horseNo] = horses[tgt.horseNo] ? horses[tgt.horseNo] : [];
-        horses[tgt.horseNo].push({ y: tgt.distanceToGoalLine, x: date, z: 1 });
+        horses[tgt.horseNo].push({ y: tgt.distanceToGoalLine, x: tgt.posX, z: 1 });
 
         //console.log(horses[tgt.horseNo]);
 
