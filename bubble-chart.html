@@ -26,20 +26,24 @@
             return data
         }
 
-        let ctx = document.getElementById("myChart");
-        let horseData = [];
-        for (let i = 0; i < data.length; i++) {
-            let b = horseData[i];
-            ctx.fillRect(b.horseNo, b.data)
-        }
+        // let ctx = document.getElementById("myChart");
+        // let horseNoData = [];
+        // for (let i = 0; i < data.length; i++) {
+        //     let b = horseData[i];
+        //     ctx.fillRect(b.horseNo, b.data)
+        // }
+        let data = [
+            { horseNo: "2", data: "333" },
+            { horseNo: "22", data: "436" },
+            { horseNo: "27", data: "454" },
+        ]
 
-        // let chartHorseData = data.map(function (horses) {
-        //     return horses.horseNo;
-        //     ctx.fillRect(horses.horseNo);
+        let horseNoData = data.map(function (horses) {
+            return horses.horseNo + " " + horses.data
+            ctx.fillRect(horses.horseNo);
+            console.log(horseNoData);
+        })
 
-        // })
-
-        let horseData = data.filter(chartHorseData);
 
         function drawChart() {
 
