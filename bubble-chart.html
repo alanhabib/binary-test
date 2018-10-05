@@ -25,58 +25,60 @@
             for (let i = 0; i < horseData.length; i++) {
                 let b = horseData[i];
 
-                //console.log(b.data[0]);
+                console.log(b.data[0]);
 
 
                 b.data.forEach(function (item) {
                     item.name = b.horseNo;
                     // console.log(item);
                     newData.push(item)
+                    // console.log(newData);
+
                 })
+
             }
-
-            // let horseSpecificData = horseData.map(function (horses) {
-            //     return "HorseNo: " + horses.horseNo + " data: " + horses.data
-            // })
-            // console.log(horseSpecificData);
-
-            let x = [
-                { x: 2286.7, y: 2, z: 320.896, name: "US" },
-                { x: 2486.7, y: 5, z: 320.896, name: "US" },
-                { x: 2186.7, y: 8, z: 320.896, name: "US" },
-                { x: 2986.7, y: 12, z: 320.896, name: "US" },
-
-            ];
-            console.log(newData);
-            let chart = new CanvasJS.Chart("chartContainer", {
-                animationEnabled: true,
-                title: {
-                    text: "Horse track race"
-                },
-                axisX: {
-                    title: "Time"
-                },
-                axisY: {
-                    title: "Distance"
-                },
-                legend: {
-                    horizontalAlign: "left"
-                },
-                data: [{
-                    type: "bubble",
-                    xValueFormatString: "hh:mm TT",
-                    showInLegend: true,
-                    legendText: "Shows a horse track race",
-                    legendMarkerType: "circle",
-                    legendMarkerColor: "grey",
-                    toolTipContent: "<b>{name}</b><br/>Time: {x} yrs<br/> Distance: {y}<br/> Ratio: {z}mn",
-                    dataPoints: x
-                }]
-            });
-            chart.render();
         })()
 
-//                 newChart = () => {
+
+        // let horseSpecificData = horseData.map(function (horses) {
+        //     return "HorseNo: " + horses.horseNo + " data: " + horses.data
+        // })
+        // console.log(horseSpecificData);
+
+        let testChart = [
+            { x: 2286.7, y: 2, z: 320.896, name: "US" },
+            { x: 2486.7, y: 5, z: 320.896, name: "US" },
+            { x: 2186.7, y: 8, z: 320.896, name: "US" },
+            { x: 2986.7, y: 12, z: 320.896, name: "US" },
+
+        ]
+
+        let chart = new CanvasJS.Chart("chartContainer", {
+            animationEnabled: true,
+            title: {
+                text: "Horse track race"
+            },
+            axisX: {
+                title: "Time"
+            },
+            axisY: {
+                title: "Distance"
+            },
+            legend: {
+                horizontalAlign: "left"
+            },
+            data: [{
+                type: "bubble",
+                xValueFormatString: "hh:mm TT",
+                showInLegend: true,
+                legendText: "Shows a horse track race",
+                legendMarkerType: "circle",
+                legendMarkerColor: "grey",
+                toolTipContent: "<b>{name}</b><br/>Time: {x} yrs<br/> Distance: {y}<br/> Ratio: {z}mn",
+                dataPoints: testChart
+            }]
+        });
+        chart.render()
 
 // let chart = new CanvasJS.Chart("chartContainer", {
 //     animationEnabled: true,

@@ -11,10 +11,9 @@ const PORT = 4000;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-//app.use(cors());
+// app.use(cors());
 
 app.get("/info", async (req, res, err) => {
-
   // 1 byte = 8 bitar = 2 hex
   // läser readfile
 
@@ -39,10 +38,14 @@ app.get("/info", async (req, res, err) => {
         //console.log(targetCounter, offset, '-------------------------------------');
         const tgt = targetHeader(block);
         offset += block.length;
-        // let date = new Date(1000 * packet.timestamp);
+        let date = new Date(1000 * packet.timestamp);
 
         horses[tgt.horseNo] = horses[tgt.horseNo] ? horses[tgt.horseNo] : [];
-        horses[tgt.horseNo].push({ y: tgt.distanceToGoalLine, x: tgt.posX, z: 1 });
+        horses[tgt.horseNo].push({
+          y: tgt.distanceToGoalLine,
+          x: date,
+          z: tgt.posZ
+        });
 
         //console.log(horses[tgt.horseNo]);
 
@@ -117,6 +120,7 @@ app.get("/info", async (req, res, err) => {
       horseNo: horseNo,
       posX: posX,
       posY: posY,
+      posZ: posZ,
       distanceToGoalLine: distanceToGoalLine
     };
   }
